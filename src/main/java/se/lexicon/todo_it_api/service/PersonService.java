@@ -2,6 +2,7 @@ package se.lexicon.todo_it_api.service;
 
 
 import se.lexicon.todo_it_api.dto.PersonDto;
+import se.lexicon.todo_it_api.dto.PersonDtoSmall;
 import se.lexicon.todo_it_api.exception.AppResourceNotFoundException;
 import se.lexicon.todo_it_api.form.PersonForm;
 

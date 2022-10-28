@@ -1,8 +1,7 @@
 package se.lexicon.todo_it_api.dto;
 
-import lombok.*;
-import se.lexicon.todo_it_api.model.entity.Person;
 
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -11,12 +10,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class TodoItemDto {
-
+public class TodoItemDtoSmall {
     private Integer todoItemId;
     private String title;
     private String description;
     private LocalDate deadLine;
     private boolean done;
-    private PersonDtoSmall assignee;
 }

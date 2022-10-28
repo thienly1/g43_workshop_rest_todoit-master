@@ -16,7 +16,7 @@ public interface TodoItemService {
     List<TodoItemDto> findAllUnassigned() throws AppResourceNotFoundException;
     List<TodoItemDto> findAllUnFinishAndOverdue() throws AppResourceNotFoundException;
     List<TodoItemDto> findByPersonId(Integer personId) throws AppResourceNotFoundException;
-    List<TodoItemDto> findByDoneStatus(Boolean status) throws AppResourceNotFoundException;
+    List<TodoItemDto> findByDoneStatus(boolean status) throws AppResourceNotFoundException;
     List<TodoItemDto> findByDeadLineBetween(LocalDate start, LocalDate end) throws AppResourceNotFoundException;
     List<TodoItemDto> findByDeadLineBefore(LocalDate end) throws AppResourceNotFoundException;
     List<TodoItemDto> findByDeadLineAfter(LocalDate start) throws AppResourceNotFoundException;
