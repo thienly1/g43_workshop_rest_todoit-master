@@ -48,20 +48,20 @@ public class TodoItemController {
         return ResponseEntity.ok(todoItemService.findByPersonId(personId));
     }
 
-    @GetMapping("status")
+    @GetMapping("/status")
     public ResponseEntity<Collection<TodoItemDto>> findByDoneStatus(@RequestParam("status") String status){
         Boolean statusForSearch= Boolean.parseBoolean(status);
         return ResponseEntity.ok(todoItemService.findByDoneStatus(statusForSearch));
     }
-    @GetMapping("between")
+    @GetMapping("/between")
     public ResponseEntity<Collection<TodoItemDto>> findByDeadlineBetween(@RequestParam("start") String start,@RequestParam("end") String end){
         return ResponseEntity.ok(todoItemService.findByDeadLineBetween(LocalDate.parse(start), LocalDate.parse(end)));
     }
-    @GetMapping("endDate")
+    @GetMapping("/endDate")
     public ResponseEntity<Collection<TodoItemDto>> findByDeadlineBefore(@RequestParam("endDate") String endDate){
         return ResponseEntity.ok(todoItemService.findByDeadLineBefore(LocalDate.parse(endDate)));
     }
-    @GetMapping("startDate")
+    @GetMapping("/startDate")
     public ResponseEntity<Collection<TodoItemDto>> findByDeadlineAfter(@RequestParam("startDate") String startDate){
         return ResponseEntity.ok(todoItemService.findByDeadLineAfter(LocalDate.parse(startDate)));
     }

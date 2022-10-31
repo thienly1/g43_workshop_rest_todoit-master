@@ -34,6 +34,7 @@ public class TodoItemServiceImpl implements TodoItemService{
     }
 
     @Override
+    @Transactional
     public TodoItemDto create(TodoItemForm todoItemForm) {
         if (todoItemForm == null) throw  new IllegalArgumentException("todoItem form is null");
         TodoItem todoItem = conversion.toTodoItem(todoItemForm);
@@ -43,7 +44,7 @@ public class TodoItemServiceImpl implements TodoItemService{
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public TodoItemDto findById(Integer todoItemId) {
         if (todoItemId == null) throw  new IllegalArgumentException("todoItem form is null");
         TodoItem found = todoItemDAO.findById(todoItemId).orElseThrow(
@@ -59,6 +60,7 @@ public class TodoItemServiceImpl implements TodoItemService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<TodoItemDto> findByTitle(String title){
         if (title == null) throw new IllegalArgumentException("title is null");
         List<TodoItem> allByTitle = todoItemDAO.findByTitleContains(title);
@@ -66,18 +68,21 @@ public class TodoItemServiceImpl implements TodoItemService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<TodoItemDto> findAllUnassigned() {
         List<TodoItem> allUnAssigned = todoItemDAO.findUnassignedTodoItems();
         return allUnAssigned.stream().map(conversion::toTodoItemDto).collect(Collectors.toList());
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<TodoItemDto> findAllUnFinishAndOverdue() {
         List<TodoItem> allMatches = todoItemDAO.findAllUnfinishedAndOverdue();
         return allMatches.stream().map(conversion::toTodoItemDto).collect(Collectors.toList());
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<TodoItemDto> findByPersonId(Integer personId) {
         if (personId ==null) throw new IllegalArgumentException("personId is null");
         List<TodoItem> findId = todoItemDAO.findByPersonId(personId);
@@ -85,30 +90,35 @@ public class TodoItemServiceImpl implements TodoItemService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<TodoItemDto> findByDoneStatus(boolean status) {
         List<TodoItem> findByStatus = todoItemDAO.findByDoneStatus(status);
         return findByStatus.stream().map(conversion::toTodoItemDto).collect(Collectors.toList());
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<TodoItemDto> findByDeadLineBetween(LocalDate start, LocalDate end) {
         List<TodoItem> findByDate = todoItemDAO.findByDeadlineBetween(start, end);
         return findByDate.stream().map(conversion::toTodoItemDto).collect(Collectors.toList());
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<TodoItemDto> findByDeadLineBefore(LocalDate end) {
         List<TodoItem> findByEndDate = todoItemDAO.findByDeadLineBefore(end);
         return findByEndDate.stream().map(conversion::toTodoItemDto).collect(Collectors.toList());
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<TodoItemDto> findByDeadLineAfter(LocalDate start) {
         List<TodoItem> findByStartDate = todoItemDAO.findByDeadlineAfter(start);
         return findByStartDate.stream().map(todoItem -> conversion.toTodoItemDto(todoItem)).collect(Collectors.toList());
     }
 
     @Override
+    @Transactional
     public TodoItemDto update(Integer todoItemId, TodoItemForm todoItemForm) {
         if(todoItemId ==null) throw new IllegalArgumentException("TodoItem Id is null");
         if(todoItemForm ==null) throw new IllegalArgumentException("TodoItem Form is null");
@@ -121,6 +131,7 @@ public class TodoItemServiceImpl implements TodoItemService{
     }
 
     @Override
+    @Transactional
     public Boolean delete(Integer todoItemId) {
         if(todoItemId==null) throw new IllegalArgumentException("todoItemId is null");
         if(!todoItemDAO.existsById(todoItemId)) throw new AppResourceNotFoundException("There is no todoItem with that todoItemId in the database");

@@ -36,6 +36,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    @Transactional
     public PersonDto create(PersonForm personForm) {
         if(personForm==null) throw new IllegalArgumentException("personForm is null");
         Person person= conversion.toPerson(personForm);
@@ -52,18 +53,21 @@ public class PersonServiceImpl implements PersonService {
        return conversion.toPersonDto(found);
     }
     @Override
+    @Transactional(readOnly = true)
     public List<PersonDto> findAll() {
         List<Person> all = personDAO.findAll();
         return all.stream().map(conversion::toPersonDto).collect(Collectors.toList());
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<PersonDto> findIdlePeople() {
         List<Person> idlePeople = personDAO.findIdlePeople();
         return idlePeople.stream().map(conversion::toPersonDto).collect(Collectors.toList());
     }
 
     @Override
+    @Transactional
     public PersonDto update(Integer personId, PersonForm personForm) {
         if(personId==null) throw new IllegalArgumentException("person Id is null");
         if(personForm==null) throw new IllegalArgumentException("personForm is null");
@@ -75,6 +79,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    @Transactional
     public boolean delete(Integer personId) {
         if(personId==null) throw new IllegalArgumentException("personId is null");
         if(!personDAO.existsById(personId)) throw new AppResourceNotFoundException("There is no person with that personId in the database");
@@ -83,6 +88,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    @Transactional
     public PersonDto addTodoItem(Integer personId, Integer todoItemId) {
         if(personId==null) throw new IllegalArgumentException("personId is null");
         if(todoItemId==null) throw new IllegalArgumentException("todoItemId is null");
@@ -94,6 +100,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    @Transactional
     public PersonDto removeTodoItem(Integer personId, Integer todoItemId) {
         if(personId==null) throw new IllegalArgumentException("personId was null");
         if(todoItemId==null) throw new IllegalArgumentException("todoItemId is null");

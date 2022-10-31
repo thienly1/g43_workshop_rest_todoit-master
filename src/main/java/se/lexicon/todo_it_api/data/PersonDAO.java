@@ -11,5 +11,4 @@ public interface PersonDAO extends JpaRepository<Person, Integer> {
     @Query("SELECT p FROM Person p WHERE SIZE(p.todoItems) = 0")
     List<Person> findIdlePeople();
 
-
 }
